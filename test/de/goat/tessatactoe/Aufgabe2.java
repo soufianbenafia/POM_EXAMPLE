@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.NoSuchElementException;
 
-
 public class Aufgabe2 {
 	private WebDriver driver;
 	private TacToePage tacToePage;
@@ -31,7 +30,7 @@ public class Aufgabe2 {
 
 	@Test
 	public void gewinnUeberEcke() throws InterruptedException {
-		//tacToePage.delay();
+		// tacToePage.delay();
 		tacToePage.clickCell("10");
 		tacToePage.clickCell("11");
 		tacToePage.clickCell("12");
@@ -47,7 +46,7 @@ public class Aufgabe2 {
 
 	@Test(expected = NoSuchElementException.class)
 	public void backslash() throws InterruptedException {
-		//tacToePage.delay();
+		// tacToePage.delay();
 		tacToePage.clickCell("2");
 		tacToePage.clickCell("5");
 		tacToePage.clickCell("8");
@@ -55,5 +54,48 @@ public class Aufgabe2 {
 		tacToePage.clickCell("14");
 		tacToePage.clickCell("10");
 		tacToePage.getPlayerWon();
+	}
+
+	@Test
+	public void playerBiuld_V() throws InterruptedException {
+		// tacToePage.delay();
+		tacToePage.clickCell("0");
+		tacToePage.clickCell("1");
+		tacToePage.clickCell("6");
+		tacToePage.clickCell("7");
+		tacToePage.clickCell("2");
+
+		String val1 = tacToePage.getScorePlayer1();
+		String val2 = tacToePage.getScorePlayer2();
+		assertEquals("0", val1);
+		assertEquals("0", val2);
+	}
+
+	@Test
+	public void inpossibleWin() throws InterruptedException {
+		// tacToePage.delay();
+		tacToePage.clickCell("0");
+		tacToePage.clickCell("1");
+		tacToePage.clickCell("2");
+		tacToePage.clickCell("3");
+		tacToePage.clickCell("4");
+		tacToePage.clickCell("6");
+		tacToePage.clickCell("5");
+		tacToePage.clickCell("8");
+		tacToePage.clickCell("7");
+		tacToePage.clickCell("10");
+		tacToePage.clickCell("9");
+		tacToePage.clickCell("12");
+		tacToePage.clickCell("11");
+		tacToePage.clickCell("14");
+		tacToePage.clickCell("13");
+		tacToePage.clickCell("15");
+		tacToePage.clickCell("16");
+		tacToePage.clickCell("17");
+		tacToePage.clickCell("18");
+		String val1 = tacToePage.getScorePlayer1();
+		String val2 = tacToePage.getScorePlayer2();
+		assertEquals("0", val1);
+		assertEquals("0", val2);
 	}
 }
