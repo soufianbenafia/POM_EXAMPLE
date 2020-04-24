@@ -122,4 +122,8 @@ public class TacToePage {
 	public void delay() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cell-0")));
 	}
+	
+	boolean closeButtonAppear() {
+		return (driver.findElement(By.cssSelector(".gwt-Button")).isEnabled());
+	}
 }

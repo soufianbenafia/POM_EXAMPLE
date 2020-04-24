@@ -2,6 +2,8 @@ package de.goat.tessatactoe;
 
 import org.junit.Test;
 import org.junit.Before;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
@@ -98,143 +100,48 @@ public class Aufgabe2 {
 		assertEquals("0", val1);
 		assertEquals("0", val2);
 	}
+
+	@Test
+	public void Feldmerhmalsklicken() {
 	
-	//Faissal
-		@Test
-	public void bug6() {
-
-
-		driver.get("http://127.0.0.1:8888/TeSSA_Tac_Toe_GWT.html");
-		driver.manage().window().setSize(new Dimension(1366, 768));
-
-		WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
-				.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#cell-7 > .button")));
-
 		int i = 30;
 		while(i > 0) {
 
-			driver.findElement(By.cssSelector("#cell-7 > .button")).click();
+			tacToePage.clickCell("7");
 			i--;
 		}
 	}
 
-	//@Test
-	public void bug10() {
+	@Test
+	public void HorizontalSpalte4() {
 
 		//horizontal4Spalte
 
+		//tacToePage.delay();
 
-		driver.get("http://127.0.0.1:8888/TeSSA_Tac_Toe_GWT.html");
-		driver.manage().window().setSize(new Dimension(1366, 768));
-
-		WebElement firstResult = new WebDriverWait(driver, Duration.ofSeconds(10))
-				.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#cell-7 > .button")));
-
-		markfield(4, 0, driver);
-		markfield(9, 5, driver);
-		markfield(14, noField, driver);		
-		assertTrue(driver.findElement(By.cssSelector(".gwt-Button")).isEnabled());
-		driver.findElement(By.cssSelector(".gwt-Button")).click();
-
-		driver.close();
-	}
-
-
-	//@Test
-	public void bug5() {
+		tacToePage.clickCell("4");
+		tacToePage.clickCell("0");
+		tacToePage.clickCell("9");
+		tacToePage.clickCell("5");
+		tacToePage.clickCell("14");
 		
-		driver.get("http://127.0.0.1:8888/TeSSA_Tac_Toe_GWT.html");
-		driver.manage().window().setSize(new Dimension(1366, 768));
+		assertTrue(tacToePage.closeButtonAppear());
 
-		driver.findElement(By.cssSelector("#player2-icon > .gwt-ListBox")).click();
-		{
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			WebElement dropdown = driver.findElement(By.cssSelector("#player2-icon > .gwt-ListBox"));
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			dropdown.findElement(By.xpath("//option[. = 'tessa_r']")).click();
-			
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	}
+
+
+	@Test
+	public void IconZuXUndTessa_R() {
+
+		//tacToePage.delay();
 		
-
-		driver.findElement(By.cssSelector("#cell-0 > .button")).click();
-		driver.findElement(By.cssSelector("#cell-1 > .button")).click();
+		tacToePage.chooseSignFromComboxPlayer1("x");
+		tacToePage.chooseSignFromComboxPlayer2("tessa_r");
+		assertEquals("x", tacToePage.getCurrentPlayer1Sign());
+		assertEquals("tessa_r", tacToePage.getCurrentPlayer2Sign());
+		tacToePage.clickCell("4");
+		tacToePage.clickCell("0");
 
 	}
 
-
-
-
-
-
-
-
-
-	//************************hilfsmethoden**********************************
-
-	public void markfield(int fieldForP1, int fieldFor2,WebDriver driver2) {
-		switch(fieldForP1) {
-
-		case 0:  driver2.findElement(By.cssSelector("#cell-0 > .button")).click();break;
-		case 1:  driver2.findElement(By.cssSelector("#cell-1 > .button")).click();break;
-		case 2:  driver2.findElement(By.cssSelector("#cell-2 > .button")).click();break;
-		case 3:  driver2.findElement(By.cssSelector("#cell-3 > .button")).click();break;
-		case 4:  driver2.findElement(By.cssSelector("#cell-4 > .button")).click();break;
-		case 5:  driver2.findElement(By.cssSelector("#cell-5 > .button")).click();break;
-		case 6:  driver2.findElement(By.cssSelector("#cell-6 > .button")).click();break;
-		case 7:  driver2.findElement(By.cssSelector("#cell-7 > .button")).click();break;
-		case 8:  driver2.findElement(By.cssSelector("#cell-8 > .button")).click();break;
-		case 9:  driver2.findElement(By.cssSelector("#cell-9 > .button")).click();break;
-		case 10: driver2.findElement(By.cssSelector("#cell-10 > .button")).click();break;
-		case 11: driver2.findElement(By.cssSelector("#cell-11 > .button")).click();break;
-		case 12: driver2.findElement(By.cssSelector("#cell-12 > .button")).click();break;
-		case 13: driver2.findElement(By.cssSelector("#cell-13 > .button")).click();break;
-		case 14: driver2.findElement(By.cssSelector("#cell-14 > .button")).click();break;
-		case 15: driver2.findElement(By.cssSelector("#cell-15 > .button")).click();break;
-		case 16: driver2.findElement(By.cssSelector("#cell-16 > .button")).click();break;
-		case 17: driver2.findElement(By.cssSelector("#cell-17 > .button")).click();break;
-		case 18: driver2.findElement(By.cssSelector("#cell-18 > .button")).click();break;
-		case 19: driver2.findElement(By.cssSelector("#cell-19 > .button")).click();break;
-		default: break;
-		}
-
-		switch(fieldFor2) {
-		case 0:  driver2.findElement(By.cssSelector("#cell-0 > .button")).click();break;
-		case 1:  driver2.findElement(By.cssSelector("#cell-1 > .button")).click();break;
-		case 2:  driver2.findElement(By.cssSelector("#cell-2 > .button")).click();break;
-		case 3:  driver2.findElement(By.cssSelector("#cell-3 > .button")).click();break;
-		case 4:  driver2.findElement(By.cssSelector("#cell-4 > .button")).click();break;
-		case 5:  driver2.findElement(By.cssSelector("#cell-5 > .button")).click();break;
-		case 6:  driver2.findElement(By.cssSelector("#cell-6 > .button")).click();break;
-		case 7:  driver2.findElement(By.cssSelector("#cell-7 > .button")).click();break;
-		case 8:  driver2.findElement(By.cssSelector("#cell-8 > .button")).click();break;
-		case 9:  driver2.findElement(By.cssSelector("#cell-9 > .button")).click();break;
-		case 10: driver2.findElement(By.cssSelector("#cell-10 > .button")).click();break;
-		case 11: driver2.findElement(By.cssSelector("#cell-11 > .button")).click();break;
-		case 12: driver2.findElement(By.cssSelector("#cell-12 > .button")).click();break;
-		case 13: driver2.findElement(By.cssSelector("#cell-13 > .button")).click();break;
-		case 14: driver2.findElement(By.cssSelector("#cell-14 > .button")).click();break;
-		case 15: driver2.findElement(By.cssSelector("#cell-15 > .button")).click();break;
-		case 16: driver2.findElement(By.cssSelector("#cell-16 > .button")).click();break;
-		case 17: driver2.findElement(By.cssSelector("#cell-17 > .button")).click();break;
-		case 18: driver2.findElement(By.cssSelector("#cell-18 > .button")).click();break;
-		case 19: driver2.findElement(By.cssSelector("#cell-19 > .button")).click();break;
-		default: break;
-		}
-	}
 }
