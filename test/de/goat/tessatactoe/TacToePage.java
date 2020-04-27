@@ -124,6 +124,6 @@ public class TacToePage {
 	}
 	
 	boolean closeButtonAppear() {
-		return (driver.findElement(By.cssSelector(".gwt-Button")).isEnabled());
+		return (driver.findElement(By.cssSelector(".gwt-Button")).isDisplayed());
 	}
 }
