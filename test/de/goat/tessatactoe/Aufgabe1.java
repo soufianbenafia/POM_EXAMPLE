@@ -322,25 +322,23 @@ public class Aufgabe1 {
 		// 1 mal markieren
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("1");
+		tacToePage.clickCell("2");
+		tacToePage.clickCell("3");
+		tacToePage.clickCell("4");
 		tacToePage.clickCell("6");
 		tacToePage.clickCell("5");
-		tacToePage.clickCell("10");
-		tacToePage.clickCell("11");
-		tacToePage.clickCell("16");
-		tacToePage.clickCell("15");
-		tacToePage.clickCell("7");
-		tacToePage.clickCell("2");
-
-		tacToePage.clickCell("17");
-		tacToePage.clickCell("12");
-		tacToePage.clickCell("3");
 		tacToePage.clickCell("8");
-		tacToePage.clickCell("13");
-		tacToePage.clickCell("18");
-		tacToePage.clickCell("4");
+		tacToePage.clickCell("7");
+		tacToePage.clickCell("10");
 		tacToePage.clickCell("9");
+		tacToePage.clickCell("12");
+		tacToePage.clickCell("11");
 		tacToePage.clickCell("14");
-		tacToePage.clickCell("9");
+		tacToePage.clickCell("13");
+		tacToePage.clickCell("15");
+		tacToePage.clickCell("16");
+		tacToePage.clickCell("17");
+		tacToePage.clickCell("18");
 
 		// reset
 		driver.get("http://127.0.0.1:8888/TeSSA_Tac_Toe_GWT.html");
