@@ -6,13 +6,13 @@ import org.junit.Before;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 
 public class Aufgabe1 {
 	private WebDriver driver;
@@ -20,11 +20,12 @@ public class Aufgabe1 {
 
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", "C:/WebDriver/bin/chromedriver.exe");
+		// System.setProperty("webdriver.chrome.driver","C:/WebDriver/bin/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "/home/soufian/WebDriver/bin/chromedriver");
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("http://127.0.0.1:8888/TeSSA_Tac_Toe_GWT.html");
 		tacToePage = new TacToePage(driver);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
 
 	@After
@@ -34,7 +35,6 @@ public class Aufgabe1 {
 
 	@Test
 	public void player1Win() throws InterruptedException {
-		// tacToePage.delay();
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("7");
 		tacToePage.clickCell("1");
@@ -45,8 +45,7 @@ public class Aufgabe1 {
 	}
 
 	@Test
-	public void player1Und2XToO() throws InterruptedException {
-		// tacToePage.delay();
+	public void player1Und2XToO() {
 		tacToePage.chooseSignFromComboxPlayer1("o");
 		tacToePage.chooseSignFromComboxPlayer2("x");
 		assertEquals("x", tacToePage.getCurrentPlayer1Sign());
@@ -54,8 +53,7 @@ public class Aufgabe1 {
 	}
 
 	@Test
-	public void diagonallyWin() throws InterruptedException {
-		// tacToePage.delay();
+	public void diagonallyWin() {
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("1");
 		tacToePage.clickCell("2");
@@ -70,25 +68,40 @@ public class Aufgabe1 {
 	}
 
 	@Test
-	public void notEqualIcon() throws InterruptedException {
-		// tacToePage.delay();
+	public void notEqualIcon() {
 		tacToePage.chooseSignFromComboxPlayer1("o");
 		final boolean notEqual = tacToePage.getCurrentPlayer1Sign().equals(tacToePage.getCurrentPlayer2Sign());
 		assertFalse("equals icons is not correct", notEqual);
 	}
 
+	/**
+	 * Test if icon of players changed
+	 */
+	@Test
+	public void testPlayerIconChanged() {
+		tacToePage.chooseSignFromComboxPlayer1("o");
+		tacToePage.chooseSignFromComboxPlayer2("x");
+		final String player1Sign = tacToePage.getCurrentPlayer1Sign();
+		final String player2Sign = tacToePage.getCurrentPlayer2Sign();
+		assertEquals("o", player1Sign);
+		assertEquals("x", player2Sign);
+	}
 
-
+	@Test(expected = NoSuchElementException.class)
+	public void testLNotWin() throws InterruptedException {
+		tacToePage.clickCell("0");
+		tacToePage.clickCell("1");
+		tacToePage.clickCell("5");
+		tacToePage.clickCell("10");
+		tacToePage.clickCell("15");
+		tacToePage.getPlayerWon();
+	}
 
 	@Test
 	public void testeAlleGewinnMoeglichkeiten() {
+		// **************Horizontal***********************
 
-
-		//tacToePage.delay();
-
-		//**************Horizontal***********************	
-
-		//horizontal0Spalte
+		// horizontal0Spalte
 
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("1");
@@ -98,8 +111,7 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-
-		//horizontal1Spalte
+		// horizontal1Spalte
 		tacToePage.clickCell("1");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("6");
@@ -108,18 +120,16 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-
-		//horizontal2Spalte
+		// horizontal2Spalte
 		tacToePage.clickCell("2");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("7");
 		tacToePage.clickCell("5");
-		tacToePage.clickCell("12");	
+		tacToePage.clickCell("12");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-
-		//horizontal3Spalte
+		// horizontal3Spalte
 		tacToePage.clickCell("3");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("8");
@@ -128,7 +138,7 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//horizontal4Spalte
+		// horizontal4Spalte
 		tacToePage.clickCell("4");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("9");
@@ -137,9 +147,9 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//**************Vertikal***********************	
+		// **************Vertikal***********************
 
-		//vertikalZeile0Links
+		// vertikalZeile0Links
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("5");
 		tacToePage.clickCell("1");
@@ -148,52 +158,52 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile0Rechts
+		// vertikalZeile0Rechts
 		tacToePage.clickCell("2");
 		tacToePage.clickCell("5");
 		tacToePage.clickCell("3");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("4");	
+		tacToePage.clickCell("4");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile1Links
+		// vertikalZeile1Links
 		tacToePage.clickCell("5");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("6");
 		tacToePage.clickCell("1");
-		tacToePage.clickCell("7");	
+		tacToePage.clickCell("7");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile1Rechts
+		// vertikalZeile1Rechts
 		tacToePage.clickCell("7");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("8");
 		tacToePage.clickCell("1");
-		tacToePage.clickCell("9");	
+		tacToePage.clickCell("9");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile2Links
+		// vertikalZeile2Links
 		tacToePage.clickCell("10");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("11");
 		tacToePage.clickCell("1");
-		tacToePage.clickCell("12");	
+		tacToePage.clickCell("12");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile2Links
+		// vertikalZeile2Links
 		tacToePage.clickCell("10");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("11");
 		tacToePage.clickCell("1");
-		tacToePage.clickCell("12");	
+		tacToePage.clickCell("12");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile2Rechts
+		// vertikalZeile2Rechts
 		tacToePage.clickCell("12");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("13");
@@ -202,93 +212,92 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile3Links
+		// vertikalZeile3Links
 		tacToePage.clickCell("15");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("16");
 		tacToePage.clickCell("1");
-		tacToePage.clickCell("17");	
+		tacToePage.clickCell("17");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//vertikalZeile3Rechts
+		// vertikalZeile3Rechts
 		tacToePage.clickCell("17");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("18");
 		tacToePage.clickCell("5");
-		tacToePage.clickCell("19");	
+		tacToePage.clickCell("19");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//**************diagonal***********************	
+		// **************diagonal***********************
 
-		//diagonal0
+		// diagonal0
 		tacToePage.clickCell("10");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("6");
 		tacToePage.clickCell("5");
-		tacToePage.clickCell("2");	
+		tacToePage.clickCell("2");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//diagonal1
+		// diagonal1
 		tacToePage.clickCell("15");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("11");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("7");	
+		tacToePage.clickCell("7");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//diagonal2
+		// diagonal2
 		tacToePage.clickCell("11");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("7");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("3");	
+		tacToePage.clickCell("3");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//diagonal3
+		// diagonal3
 		tacToePage.clickCell("16");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("12");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("8");		
+		tacToePage.clickCell("8");
 		assertTrue(driver.findElement(By.cssSelector(".gwt-Button")).isEnabled());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-
-		//diagonal4
+		// diagonal4
 		tacToePage.clickCell("16");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("12");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("8");	
+		tacToePage.clickCell("8");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//diagonal5
+		// diagonal5
 		tacToePage.clickCell("12");
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("8");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("9");	
+		tacToePage.clickCell("9");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//**************PunkteNichtVerbunden***********************	
+		// **************PunkteNichtVerbunden***********************
 
-		//PunkteNichtVerbunden0
+		// PunkteNichtVerbunden0
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("1");
 		tacToePage.clickCell("10");
 		tacToePage.clickCell("6");
-		tacToePage.clickCell("15");	
+		tacToePage.clickCell("15");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//PunkteNichtVerbunden1
+		// PunkteNichtVerbunden1
 		tacToePage.clickCell("1");
 		tacToePage.clickCell("7");
 		tacToePage.clickCell("6");
@@ -297,24 +306,20 @@ public class Aufgabe1 {
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
 
-		//PunkteNichtVerbunden2
+		// PunkteNichtVerbunden2
 		tacToePage.clickCell("15");
 		tacToePage.clickCell("7");
 		tacToePage.clickCell("16");
 		tacToePage.clickCell("8");
-		tacToePage.clickCell("18");	
+		tacToePage.clickCell("18");
 		assertTrue(tacToePage.closeButtonAppear());
 		driver.findElement(By.cssSelector(".gwt-Button")).click();
-
-
 
 	}
 
 	@Test
 	public void felderKlicken() {
-		//tacToePage.delay();
-
-		//1 mal markieren
+		// 1 mal markieren
 		tacToePage.clickCell("0");
 		tacToePage.clickCell("1");
 		tacToePage.clickCell("6");
@@ -337,28 +342,24 @@ public class Aufgabe1 {
 		tacToePage.clickCell("14");
 		tacToePage.clickCell("9");
 
-		//reset
+		// reset
 		driver.get("http://127.0.0.1:8888/TeSSA_Tac_Toe_GWT.html");
 
-		//tacToePage.delay();
-
-		//mehrmals markieren 
-		for(int i = 0; i <= 20;i++) {
+		// mehrmals markieren
+		for (int i = 0; i <= 20; i++) {
 			tacToePage.clickCell("9");
 		}
 
-		for(int i = 0; i <= 20;i++) {
+		for (int i = 0; i <= 20; i++) {
 			tacToePage.clickCell("4");
 		}
 
-		for(int i = 0; i <= 20;i++) {
+		for (int i = 0; i <= 20; i++) {
 			tacToePage.clickCell("5");
 		}
 
-		for(int i = 0; i <= 20;i++) {
+		for (int i = 0; i <= 20; i++) {
 			tacToePage.clickCell("2");
 		}
 	}
-
-
 }

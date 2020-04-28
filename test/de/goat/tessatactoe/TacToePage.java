@@ -1,11 +1,9 @@
 package de.goat.tessatactoe;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -17,6 +15,10 @@ public class TacToePage {
 	 * The Browser which will be used.
 	 */
 	WebDriver driver;
+	
+	/**
+	 * Instance to wait for elements.
+	 */
 	WebDriverWait wait;
 
 	/**
@@ -30,7 +32,7 @@ public class TacToePage {
 	By player2ComboBox = By.cssSelector("#player2-icon > .gwt-ListBox");
 	
 	/**
-	 * 
+	 * message for player won.
 	 */
 	By playerMsgWon = By.cssSelector("#playerwon > .gwt-Label");
 	
@@ -42,7 +44,6 @@ public class TacToePage {
 	 */
 	public TacToePage(final WebDriver driver) {
 		this.driver = driver;
-		this.wait = new WebDriverWait(driver,30);
 	}
 
 	/**
@@ -113,12 +114,18 @@ public class TacToePage {
 	}
 	
 	/**
+	 * Return the win message.
 	 * 
+	 * @return The win message.
 	 */
 	public String getPlayerWon() {
 		return driver.findElement(playerMsgWon).getText();
 	}
 	
+	
+	/**
+	 * Delay to avoid no such element exception.
+	 */
 	public void delay() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cell-0")));
 	}
