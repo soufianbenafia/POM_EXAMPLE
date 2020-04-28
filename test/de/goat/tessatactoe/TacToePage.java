@@ -51,7 +51,7 @@ public class TacToePage {
 	 * 
 	 * @param cellNumber The cell number which has to be clicked on.
 	 */
-	public void clickCell(final String cellNumber) {
+	public void clickCell(final int cellNumber) {
 		final String cellByNumber = "#cell-" + cellNumber + " > .button";
 		driver.findElement(By.cssSelector(cellByNumber)).click();
 	}
@@ -127,7 +127,7 @@ public class TacToePage {
 	 * Delay to avoid no such element exception.
 	 */
 	public void delay() {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cell-0")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")));
 	}
 	
 	boolean closeButtonAppear() {
